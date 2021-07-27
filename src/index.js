@@ -12,5 +12,6 @@
 //HINT: You will need to study the classes in the styles.css file to appy styling.
 import React from "react";
 import { render } from "react-dom";
+import App from "./components/App"
 
-render(<App />, document.querySelector("#root"));
+render(<App />, document.querySelector(".root"));
