@@ -5,7 +5,7 @@ let currentYear = current.getFullYear();
 
 function Footer() {
     return(
-        <footer className="footer"><p>&copy {currentYear}</p></footer>
+        <footer className="footer"><p>Copyright © {currentYear}</p></footer>
     );
 }
 
