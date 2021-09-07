@@ -1,56 +1,69 @@
 import React, { useState } from "react";
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
+import Zoom from "@material-ui/core/Zoom";
 
 function CreateArea(props) {
-  const [note, setNote] = useState({ title: "", content: "" });
+  const [note, setNote] = useState({
+    title: "",
+    content: ""
+  });
 
-  // const [itemList, setItemList] = useState([]);
+  const [isContent, setIsContent] = useState(false);
 
-  function addItems(event) {
+  function handleChange(event) {
     const { name, value } = event.target;
+
     setNote((prevNote) => {
       return {
         ...prevNote,
         [name]: value
       };
     });
-    // console.log(note);
   }
 
-  function handleClick(event) {
-    event.preventDefault();
+  function submitNote(event) {
     props.onAdd(note);
-    // setNote((prevItem) => {
-    //   return [...prevItem, note];
-    //   // console.log(itemsList);
-    // });
-    // console.log(notes);
-    setNote({ title: "", content: "" });
+    setNote({
+      title: "",
+      content: ""
+    });
+    event.preventDefault();
+  }
+
+  function textClick() {
+    console.log("Text area clicked");
+    setIsContent(true);
+    console.log(isContent);
   }
 
   return (
     <div>
-      <form>
-        <input
-          onChange={addItems}
-          name="title"
-          placeholder="Title"
-          value={note.title}
-        />
+      <form className="create-note">
+        {isContent && (
+          <input
+            name="title"
+            onChange={handleChange}
+            value={note.title}
+            placeholder="Title"
+          />
+        )}
         <textarea
-          onChange={addItems}
           name="content"
-          placeholder="Take a note..."
-          rows="3"
+          onClick={textClick}
+          onChange={handleChange}
           value={note.content}
+          placeholder="Take a note..."
+          rows={isContent ? 3 : 1}
         />
-        <button
-          // onClick={() => {
-          //   handleClick(props.id);
-          // }}
-          onClick={handleClick}
-        >
-          Add
-        </button>
+        <Zoom in={isContent && true}>
+          <button onClick={submitNote}>
+            <AddIcon />
+          </button>
+          {/* <Button onClick={submitNote} variant="contained">
+            <AddIcon />
+          </Button> */}
+        </Zoom>
       </form>
     </div>
   );
